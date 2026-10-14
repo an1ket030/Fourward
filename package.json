@@ -1,0 +1,1 @@
+{"name":"fourward-connect-four-ai-lab","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node tests/run-tests.js","benchmark":"node tools/benchmark.js","validate":"node tools/asset-validation.js"}}

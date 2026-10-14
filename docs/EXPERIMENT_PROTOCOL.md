@@ -1,0 +1,3 @@
+# Experiment protocol
+
+From the repository root, run `npm run benchmark`; capture clean JSON with `node tools/benchmark.js > docs/benchmark-results.json`. The script creates three fixed opening/midgame positions, then runs plain Minimax and Alpha-Beta with center-first ordering at depths 4 and 6. It reports move, score, nodes, leaves, terminal positions, cutoff events, considered edges, reached depth, and elapsed milliseconds. Run on the same machine/runtime when comparing timings; node count is the more stable measure. Repeat runs when reporting time and describe the environment. The script emits a generation timestamp. One observed run is preserved in `benchmark-results.json`; it is not a universal timing claim.

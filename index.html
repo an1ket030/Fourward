@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="warm">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5efe5">
+  <meta name="description" content="FOURWARD — a thoughtful Connect Four AI Lab">
+  <title>FOURWARD — Connect Four AI Lab</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" id="home-link" aria-label="Open main menu">
+        <span class="brand-mark" aria-hidden="true"><span>4</span></span>
+        <span class="brand-name">FOURWARD<small>THE CONNECT FOUR STUDY</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="top-note"><span class="live-dot"></span> YOUR QUIET CORNER FOR BIG MOVES</span>
+        <button class="quiet-button" id="sound-toggle" aria-pressed="false">Sound off</button>
+        <button class="quiet-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Evening</span></button>
+        <button class="quiet-button" id="help-button">How to play</button>
+      </div>
+    </header>
+
+    <section class="main-menu" id="main-menu" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+      <div class="menu-card">
+        <div class="menu-art" aria-hidden="true"><span class="art-disc disc-one"></span><span class="art-disc disc-two"></span><span class="art-disc disc-three"></span><span class="art-grid"></span></div>
+        <span class="eyebrow"><span class="live-dot"></span> FOURWARD / CONNECT FOUR AI LAB</span>
+        <p class="menu-kicker">A little strategy goes a long way.</p>
+        <h2 id="menu-title">Make your<br><em>next move count.</em></h2>
+        <p class="menu-copy">Settle in, read the board, and see how far ahead you can think.</p>
+        <h3>Pick a starting pace</h3>
+        <div class="difficulty-options menu-difficulty-options" role="group" aria-label="Starting difficulty">
+          <button data-depth="2" aria-pressed="false">01<small>WARM UP</small></button>
+          <button data-depth="4" aria-pressed="false">02<small>CASUAL</small></button>
+          <button data-depth="6" aria-pressed="true" class="selected">03<small>DEEP</small></button>
+          <button data-depth="8" aria-pressed="false">04<small>EXPERT</small></button>
+        </div>
+        <div class="menu-actions"><button class="primary-button" id="menu-start">Let’s play <span aria-hidden="true">↗</span></button><button class="secondary-button" id="menu-help">How to play</button></div>
+        <p class="menu-footnote">No rush. The board will be here when you’re ready.</p>
+      </div>
+    </section>
+
+    <section class="game-layout" aria-label="Connect Four game">
+      <div class="play-column">
+        <div class="eyebrow section-eyebrow"><span class="live-dot"></span> A FRIENDLY GAME OF FORESIGHT <span class="session-label">MATCH 01</span></div>
+        <div class="heading-row"><div><p class="section-kicker">TAKE A BREATH. TAKE YOUR TIME.</p><h1>Think <em>fourward.</em></h1><p class="lede">A good plan starts with one good move.</p></div><button class="icon-button" id="new-game" title="Start a new game" aria-label="Start a new game">↻</button></div>
+
+        <section class="match-card" aria-label="Players and move count">
+          <div class="player"><span class="player-token human-token" aria-hidden="true"></span><div><b>You</b><small>YOUR SIDE</small></div><span class="turn-indicator" id="human-turn"></span></div>
+          <div class="match-center"><span class="match-label">MOVE</span><b id="move-count">00</b><span class="match-label">/ 42</span></div>
+          <div class="player ai-player"><span class="player-token ai-token" aria-hidden="true"></span><div><b>Fourward</b><small id="difficulty-label">LEVEL 03 · DEEP</small></div><span class="turn-indicator" id="ai-turn"></span></div>
+        </section>
+
+        <div class="status-line" id="status" role="status" tabindex="-1" aria-live="polite">Your move. Choose a column.</div>
+        <div class="board-wrap">
+          <div class="board-caption"><span>THE BOARD IS YOURS</span><span>SIX ROWS · SEVEN COLUMNS</span></div>
+          <div class="column-controls" id="column-controls" aria-label="Choose a column"></div>
+          <div class="board-frame"><div id="board" class="board" role="grid" aria-label="Connect Four board"></div></div>
+          <div class="board-footer"><span><i class="legend-dot human-token"></i> YOU</span><span><i class="legend-dot ai-token"></i> FOURWARD</span><span class="key-hint">← → MOVE&nbsp;&nbsp; ENTER DROP</span></div>
+        </div>
+        <div class="bottom-actions"><button class="primary-button" id="restart-button">New game <span aria-hidden="true">↗</span></button><button class="secondary-button" id="undo-button" disabled>Undo last turn</button><button class="secondary-button lab-action" id="lab-toggle" aria-expanded="false">Explore the AI lab <span aria-hidden="true">⌄</span></button></div>
+      </div>
+
+      <aside class="side-column" aria-label="Game analysis and settings">
+        <section class="panel insight-panel"><div class="panel-topline"><span class="eyebrow">THE THINKING BEHIND THE MOVE</span><span class="panel-spark" aria-hidden="true">✳</span></div><div class="panel-head"><div><h2>Inside the search</h2></div><span class="pulse" id="thinking-pulse" aria-label="AI is thinking"></span></div><p class="insight-copy" id="insight-copy">I’ll look for winning lines, then weigh the strongest futures.</p><div class="metric-grid"><div class="metric"><span>POSITIONS</span><b id="metric-nodes">—</b><small>visited</small></div><div class="metric"><span>PRUNES</span><b id="metric-prunes">—</b><small>branches skipped</small></div><div class="metric"><span>LOOKAHEAD</span><b id="metric-depth">—</b><small>plies deep</small></div><div class="metric"><span>THINK TIME</span><b id="metric-time">—</b><small>search duration</small></div></div><button class="text-link" id="explain-button">What do these numbers mean? <span aria-hidden="true">↗</span></button></section>
+
+        <section class="panel difficulty-panel"><div class="panel-topline"><span class="eyebrow">MAKE IT YOUR KIND OF GAME</span><span class="panel-spark" aria-hidden="true">✳</span></div><h2>Set the challenge</h2><div class="difficulty-options" role="group" aria-label="AI difficulty"><button data-depth="2">01<small>WARM UP</small></button><button data-depth="4">02<small>CASUAL</small></button><button data-depth="6" class="selected" aria-pressed="true">03<small>DEEP</small></button><button data-depth="8">04<small>EXPERT</small></button></div><div class="depth-row"><span>How far ahead it looks</span><b id="depth-value">6 plies</b></div><input id="depth-range" type="range" min="2" max="8" step="2" value="6" aria-label="Search depth"><p class="setting-note">A higher setting thinks further and may take a little longer.</p></section>
+
+        <section class="panel record-panel"><div class="panel-topline"><span class="eyebrow">YOUR LITTLE WIN BOARD</span><span class="panel-spark" aria-hidden="true">✳</span></div><div class="record-stats"><div><b id="stat-wins">0</b><small>WINS</small></div><div><b id="stat-losses">0</b><small>LOSSES</small></div><div><b id="stat-draws">0</b><small>DRAWS</small></div></div><button class="text-link" id="reset-stats">Start the tally over <span aria-hidden="true">↗</span></button></section>
+      </aside>
+    </section>
+
+    <section class="lab panel" id="lab" hidden><div class="lab-title"><div><span class="eyebrow">A CLOSER LOOK / FOURWARD RESEARCH</span><h2>A small lab for big ideas</h2><p>Explore how two classic search strategies read the same board.</p></div><button class="secondary-button" id="run-comparison">Compare algorithms</button></div><div class="lab-grid"><article><h3>Search explorer</h3><p>Minimax imagines both players making their strongest moves. Alpha-Beta saves time by skipping branches that cannot change the result.</p><div class="root-scores" id="root-scores"><span>Root candidate scores appear after the AI searches.</span></div><h3 class="trace-heading">Recent real cutoff events</h3><div class="cutoff-trace" id="cutoff-trace">The latest Alpha-Beta search trace appears here.</div></article><article><h3>Try a position</h3><p>Enter six rows using 0 for empty, 1 for you, and 2 for Fourward. Gravity and turn counts are checked before search.</p><textarea id="position-input" aria-label="Six-row board position" spellcheck="false" placeholder="0000000&#10;0000000&#10;0000000&#10;0000000&#10;0000000&#10;0001000"></textarea><div class="position-actions"><button class="secondary-button" id="use-current-position">Use this board</button><button class="secondary-button" id="analyze-position">Analyze position</button></div><div class="comparison" id="position-result" role="status" aria-live="polite">Validated analysis output appears here.</div></article><article><h3>Same board, two approaches</h3><div class="comparison" id="comparison"><span>Compare algorithms to collect real node counts for this position.</span></div><p class="setting-note">Both searches use the same depth, evaluator, move order, and position.</p></article></div><details><summary>Metric definitions</summary><ul><li><b>Nodes visited:</b> search positions entered, including terminal and cutoff positions.</li><li><b>Leaves:</b> positions evaluated at terminal states or at the depth horizon.</li><li><b>Cutoffs:</b> Alpha-Beta bound events where remaining siblings were skipped after α ≥ β. The lab trace records ply, node type, column, bounds, and skipped sibling count.</li><li><b>Depth:</b> maximum number of plies reached from the root.</li><li><b>Duration:</b> wall-clock milliseconds measured around the search.</li></ul></details></section>
+
+    <footer><span>FOURWARD <i>·</i> TAKE YOUR TIME. THINK AHEAD.</span><span>MADE FOR CURIOUS MINDS <i>✳</i></span></footer>
+  </main>
+  <dialog id="dialog"><div class="dialog-inner"><button class="icon-button close-dialog" aria-label="Close dialog">×</button><span class="eyebrow">A FEW FIELD NOTES</span><h2 id="dialog-title">How to play</h2><div id="dialog-copy"><p>Take turns dropping tokens into the board. Connect four horizontally, vertically, or diagonally to win.</p><p>Choose a column or use the arrow keys and Enter. Fourward looks ahead with Minimax and Alpha-Beta pruning while you plan your next move.</p></div></div></dialog>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
